@@ -320,11 +320,12 @@ function drawClass(t){layoutRows();for(const k of KIDS){const R=ROWS[k.r];const 
 function drawPrompt(t){const W=VW,cx=W/2,cy=ROWS[1].y-120;const b=beatAt(t);
   // beat pulse
   const ph=b-Math.floor(b);const pulse=1-ph;
+  {const f=facing(b);if(f>.15){ctx.globalAlpha=Math.min(1,f*1.4);ctx.fillStyle='#e8344e';ctx.font=`28px ${FONT}`;ctx.textAlign='center';ctx.strokeStyle=INK;ctx.lineWidth=5;ctx.strokeText('얼음!',cx,cy-58);ctx.fillText('얼음!',cx,cy-58);ctx.globalAlpha=1}}
   for(let i=S.ni;i<Math.min(S.notes.length,S.ni+3);i++){const n=S.notes[i];if(n.st)continue;const dtn=n.t-t;if(dtn>S.spb*1.6||dtn<-JUDGE.win)continue;
     const k=clamp(dtn/(S.spb*1.6),0,1);const r=34+k*70;ctx.globalAlpha=1-k*.6;ctx.strokeStyle='#ff6fae';ctx.lineWidth=4;ell(cx,cy,r,r);ctx.stroke();ctx.globalAlpha=1;
     if(i===S.ni||dtn<S.spb*.9){ctx.fillStyle='#fff';ell(cx,cy,30,30);ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=INK;ctx.font=`38px ${FONT}`;ctx.textAlign='center';ctx.fillText(ARROW[n.dir],cx,cy+13);break}}
-  const f=facing(b);if(f>.15){ctx.fillStyle=`rgba(232,52,78,${Math.min(1,f)})`;ctx.font=`34px ${FONT}`;ctx.textAlign='center';ctx.strokeStyle=INK;ctx.lineWidth=5;ctx.strokeText('얼음!',cx,cy+12);ctx.fillText('얼음!',cx,cy+12)}
-  if(S.feed&&t-S.feed.t<.5){ctx.globalAlpha=1-(t-S.feed.t)/.5;ctx.fillStyle=S.feed.col;ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.font=`26px ${FONT}`;ctx.textAlign='center';const yy=cy-46-(t-S.feed.t)*40;ctx.strokeText(S.feed.txt,cx,yy);ctx.fillText(S.feed.txt,cx,yy);ctx.globalAlpha=1}
+
+  if(S.feed&&t-S.feed.t<.5){ctx.globalAlpha=1-(t-S.feed.t)/.5;ctx.fillStyle=S.feed.col;ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.font=`26px ${FONT}`;ctx.textAlign='center';const yy=cy-92-(t-S.feed.t)*40;ctx.strokeText(S.feed.txt,cx,yy);ctx.fillText(S.feed.txt,cx,yy);ctx.globalAlpha=1}
   // count-in
   if(b<4){ctx.fillStyle='#fff';ctx.strokeStyle=INK;ctx.lineWidth=5;ctx.font=`60px ${FONT}`;ctx.textAlign='center';const n=4-Math.floor(b);ctx.strokeText(n,cx,cy+20);ctx.fillText(n,cx,cy+20)}}
 let last=0;
